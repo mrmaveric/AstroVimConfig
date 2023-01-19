@@ -47,6 +47,10 @@ local config = {
                         spell = false, -- sets vim.opt.spell
                         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
                         wrap = false, -- sets vim.opt.wrap
+                        tabstop = 4,       -- These tab options seem to be overwritten by something
+                        softtabstop = 4,   -- These tab options seem to be overwritten by something
+                        shiftwidth = 4,    -- These tab options seem to be overwritten by something
+                        expandtab = true,  -- These tab options seem to be overwritten by something
                 },
                 g = {
                         mapleader = " ", -- sets vim.g.mapleader
@@ -144,7 +148,7 @@ local config = {
                         format_on_save = {
                                 enabled = true, -- enable or disable format on save globally
                                 allow_filetypes = { -- enable format on save for specified filetypes only
-                                        -- "go",
+                                        "rust",
                                 },
                                 ignore_filetypes = { -- disable format on save for specified filetypes
                                         -- "python",
@@ -204,12 +208,25 @@ local config = {
                         ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
                         ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
                         ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
+
+                        -- Keep cursor in center
+                        ["j"] = {"jzz", desc = "Move down"},
+                        ["k"] = {"kzz", desc = "Move up"},
+                        ["<C-d>"] = {"<C-d>zz", desc = "Move down"},
+                        ["<C-u>"] = {"<C-u>zz", desc = "Move up"},
                         -- quick save
                         -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
                 },
                 t = {
+                        ["jjj"] = {"<C-\\><C-n>", desc = "leave insert mode in terminal"},
                         -- setting a mapping to false will disable it
                         -- ["<esc>"] = false,
+                },
+                v = {
+                        -- Move highlited with JK
+                        ["J"] = {":m '>+1<CR>gv=gv", desc = "Move highlited block down"},
+                        ["K"] = {":m '<-2<CR>gv=gv", desc = "Move highlited block up"},
+			["<leader>\""] = {":s/\\%V.*\\%V/\"&\"<cr>", desc = "Quote around selection"},
                 },
         },
 
